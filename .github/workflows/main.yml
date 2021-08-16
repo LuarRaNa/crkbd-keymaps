@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
+        sudo apt-get -y install git python3-pip python3-testresources
+    - name: Update QMK Firmware
+      run: |
+        python3 -m pip install --user qmk
+        qmk setup --yes
+    - name: Link custom keymap definition ... RANA-MIRYOKU
+      run: ln -s $(pwd)/rana-miryoku $HOME/qmk_firmware/keyboards/crkbd/keymaps/rana-miryoku
+    - name: Build firmware hex distribution
+      run: qmk compile -e MIRYOKU_CLIPBOARD=MAC -kb crkbd -km rana-miryoku
+    - name: Move firmware to download
+      run: mv $HOME/qmk_firmware/crkbd_rev1_rana-miryoku.hex $(pwd)
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: crkbd_rev1_rana-miryoku.hex
+        path: crkbd_rev1_rana-miryoku.hex
