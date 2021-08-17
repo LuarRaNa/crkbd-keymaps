@@ -15,8 +15,8 @@
 #pragma once
 
 // Setting Handedness
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT
 // #define EE_HANDS
 
 // default but used in macros
