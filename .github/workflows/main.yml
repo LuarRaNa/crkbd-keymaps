@@ -23,7 +23,7 @@ jobs:
     - name: Link custom keymap definition ... RANA-MIRYOKU
       run: ln -s $(pwd)/rana-miryoku $HOME/qmk_firmware/keyboards/crkbd/keymaps/rana-miryoku
     - name: Build firmware hex distribution
-      run: qmk compile -e MIRYOKU_CLIPBOARD=MAC -kb crkbd -km rana-miryoku
+      run: qmk compile -e MIRYOKU_CLIPBOARD=MAC -e MIRYOKU_KLUDGE_THUMBCOMBOS=yes -kb crkbd -km rana-miryoku
     - name: Move firmware to download
       run: mv $HOME/qmk_firmware/crkbd_rev1_rana-miryoku.hex $(pwd)
     - name: Upload artifact
