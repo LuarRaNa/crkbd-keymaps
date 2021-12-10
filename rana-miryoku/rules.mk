@@ -35,3 +35,11 @@ endif
 ifneq ($(strip $(MIRYOKU_MAPPING)),)
   OPT_DEFS += -DMIRYOKU_MAPPING_$(MIRYOKU_MAPPING)
 endif
+
+# kludges:
+
+# thumb combos
+ifeq ($(strip $(MIRYOKU_KLUDGE_THUMBCOMBOS)),yes)
+  COMBO_ENABLE = yes
+  OPT_DEFS += -DMIRYOKU_KLUDGE_THUMBCOMBOS
+endif
