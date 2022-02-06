@@ -202,3 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 #endif // OLED_DRIVER_ENABLE
+
+void keyboard_pre_init_user(void) {
+    rgblight_disable();
+}
